@@ -379,7 +379,13 @@ function renderSetup(){
       <button class="btn btn-green" id="notif-btn">🔔 Enable Browser Notifications</button>
       <hr>
       <div class="section-title">📧 Email Reminders (EmailJS)</div>
-      <div class="emailjs-info">Sign up free at <a href="https://emailjs.com" target="_blank">emailjs.com</a>, connect Gmail, create a template with <strong>{{phase}}, {{day}}, {{tip}}, {{not_say}}, {{her_name}}</strong></div>
+      <div class="emailjs-info">
+        1. Sign up free at <a href="https://emailjs.com" target="_blank">emailjs.com</a><br>
+        2. Create an Email Service (Gmail works great)<br>
+        3. Create a new Template — paste our pre-built template using the button below<br>
+        4. Copy your Service ID, Template ID &amp; Public Key into the fields below
+      </div>
+      <button class="btn btn-outline" id="copy-template-btn" style="margin-bottom:16px">📋 Copy Email Template Code</button>
       <label>Your Email</label>
       <input type="email" id="notify-email" value="${userData.notifyEmail||''}" placeholder="you@example.com" />
       <label>EmailJS Service ID</label>
@@ -449,6 +455,66 @@ function renderSetup(){
   };
 
   $('so-btn2').onclick=doSignOut;
+
+  const EMAIL_TEMPLATE=`<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background-color:#0f0f0f;font-family:'Segoe UI',Arial,sans-serif;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#0f0f0f;padding:30px 20px;">
+  <tr><td align="center">
+    <table role="presentation" width="100%" style="max-width:560px;">
+      <tr><td style="background:linear-gradient(135deg,#1a1a2e,#16213e);border-radius:16px 16px 0 0;padding:28px 30px;text-align:center;border-bottom:3px solid #e94560;">
+        <div style="font-size:36px;margin-bottom:8px;">🎯</div>
+        <div style="color:#fff;font-size:22px;font-weight:900;letter-spacing:1px;">GUY'S GUIDE TO <span style="color:#e94560;">LADIES</span></div>
+        <div style="color:#888;font-size:13px;margin-top:4px;">Your Daily Relationship Intelligence</div>
+      </td></tr>
+      <tr><td style="background:#1a1a2e;padding:24px 30px;text-align:center;">
+        <div style="font-size:48px;margin-bottom:8px;">{{phase_emoji}}</div>
+        <div style="color:#aaa;font-size:11px;text-transform:uppercase;letter-spacing:2px;">Today — Day {{day}} of {{cycle_length}}</div>
+        <div style="color:#fff;font-size:24px;font-weight:900;margin:6px 0;">{{phase}}</div>
+        <div style="background:rgba(255,255,255,0.07);border-radius:8px;padding:10px 16px;color:#ddd;font-size:14px;font-style:italic;margin-top:8px;">"{{one_liner}}"</div>
+      </td></tr>
+      <tr><td style="background:#111;padding:20px 30px;border-left:4px solid #e94560;">
+        <div style="color:#e94560;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">🧬 What's Happening Hormonally</div>
+        <div style="color:#ccc;font-size:14px;line-height:1.7;">{{hormones}}</div>
+      </td></tr>
+      <tr><td style="background:#0f0f0f;padding:20px 30px;border-left:4px solid #6633cc;">
+        <div style="color:#9966ff;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">🎭 Mood & Energy Today</div>
+        <div style="color:#ccc;font-size:14px;line-height:1.7;">{{mood}}</div>
+      </td></tr>
+      <tr><td style="background:#0a1a0a;padding:20px 30px;border-left:4px solid #44cc44;">
+        <div style="color:#44cc44;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">🏆 Your Win Move Today</div>
+        <div style="color:#ccc;font-size:15px;line-height:1.7;">{{tip}}</div>
+      </td></tr>
+      <tr><td style="background:#1a0a0a;padding:20px 30px;border-left:4px solid #ff4444;">
+        <div style="color:#ff4444;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">🤐 Do NOT Say This Today</div>
+        <div style="background:#2a1111;border-radius:8px;padding:12px 16px;color:#ffaaaa;font-size:14px;font-style:italic;">🚫 {{not_say}}</div>
+      </td></tr>
+      <tr><td style="background:#111;padding:16px 30px;text-align:center;">
+        <div style="color:#555;font-size:12px;">Tracking <strong style="color:#888;">{{her_name}}</strong> &nbsp;•&nbsp; Day <strong style="color:#e94560;">{{day}}</strong> of <strong style="color:#888;">{{cycle_length}}</strong></div>
+        <div style="margin-top:8px;background:#222;border-radius:100px;height:8px;overflow:hidden;">
+          <div style="background:#e94560;height:8px;width:{{progress_pct}}%;border-radius:100px;"></div>
+        </div>
+      </td></tr>
+      <tr><td style="background:#0a0a0a;border-radius:0 0 16px 16px;padding:20px 30px;text-align:center;border-top:1px solid #222;">
+        <div style="color:#444;font-size:12px;">Made with ❤️ for the guys who actually give a damn</div>
+        <div style="color:#333;font-size:11px;margin-top:4px;">Guy's Guide to Ladies • Daily Reminder</div>
+      </td></tr>
+    </table>
+  </td></tr>
+</table>
+</body>
+</html>`;
+
+  $('copy-template-btn').onclick=()=>{
+    navigator.clipboard.writeText(EMAIL_TEMPLATE).then(()=>{
+      const btn=$('copy-template-btn');
+      btn.textContent='✅ Copied to Clipboard!';
+      btn.style.borderColor='#44cc44';
+      btn.style.color='#44cc44';
+      setTimeout(()=>{ btn.textContent='📋 Copy Email Template Code'; btn.style.borderColor=''; btn.style.color=''; },3000);
+    }).catch(()=>{ alert('Copy failed — please copy the template manually from the Guide tab.'); });
+  };
 }
 
 // ── Reference ──────────────────────────────────────────────
