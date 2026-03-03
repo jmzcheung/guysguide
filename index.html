@@ -50,9 +50,9 @@
   .phase-banner .day-badge{font-size:.9em;opacity:.7;margin-bottom:6px}
   .phase-banner .one-liner{font-size:.95em;font-style:italic;color:rgba(255,255,255,.9);margin:10px 0 6px;background:rgba(0,0,0,.3);border-radius:8px;padding:10px 16px;display:inline-block;line-height:1.5}
   .phase-banner .emoji{font-size:3em;margin-bottom:8px;display:block}
-  .cycle-bar{background:#222;border-radius:100px;height:10px;margin:10px 0 4px;overflow:hidden}
-  .cycle-bar-fill{height:100%;border-radius:100px}
-  .cycle-meta{display:flex;justify-content:space-between;font-size:.75em;color:#666}
+  .cycle-bar{background:rgba(0,0,0,.3);border-radius:100px;height:8px;margin:10px 0 4px;overflow:hidden}
+  .cycle-bar-fill{height:100%;border-radius:100px;transition:width .3s ease}
+  .cycle-meta{display:flex;justify-content:space-between;font-size:.75em;color:rgba(255,255,255,.5)}
   .card{background:#1a1a1a;border-radius:14px;padding:20px;margin-bottom:16px;border-left:4px solid #e94560}
   .card h4{font-size:.8em;text-transform:uppercase;letter-spacing:1px;color:#e94560;margin-bottom:10px;font-weight:700}
   .card p{color:#ccc;line-height:1.6;font-size:.95em}
@@ -84,12 +84,11 @@
   .user-bar{display:flex;align-items:center;justify-content:space-between;background:#1a1a1a;border-radius:10px;padding:10px 16px;margin-bottom:16px;font-size:.85em}
   .tag{display:inline-block;background:#e94560;border-radius:6px;padding:2px 8px;font-size:.75em;font-weight:700;margin-left:8px;vertical-align:middle}
   .rel-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.78em;font-weight:700;margin-bottom:10px;background:rgba(0,0,0,.3);color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.2)}
-  .stage-pill{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.75em;font-weight:700;margin-left:6px;background:#2a1a3d;color:#cc99ff;border:1px solid #6633cc}
   .warning-banner{background:#2a1a00;border:1px solid #cc7700;border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:.84em;color:#ffaa44;line-height:1.6}
   .info-banner{background:#1a1a2e;border:1px solid #336699;border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:.84em;color:#88aaff;line-height:1.6}
   .divider-label{text-align:center;font-size:.75em;text-transform:uppercase;letter-spacing:2px;color:#444;margin:20px 0;position:relative}
   .divider-label::before,.divider-label::after{content:'';position:absolute;top:50%;width:35%;height:1px;background:#222}
-  .divider-label::before{left:0} .divider-label::after{right:0}
+  .divider-label::before{left:0}.divider-label::after{right:0}
   .loading{text-align:center;padding:60px 20px;color:#888}
   .spinner{display:inline-block;width:32px;height:32px;border:3px solid #333;border-top-color:#e94560;border-radius:50%;animation:spin .8s linear infinite;margin-bottom:12px}
   @keyframes spin{to{transform:rotate(360deg)}}
@@ -97,19 +96,38 @@
   .emailjs-info a{color:#ffcc44}
   footer{text-align:center;padding:20px;color:#333;font-size:.75em}
 
+/* ── Day Scrubber ── */
+.scrubber-wrap{margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.12)}
+.scrubber-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:8px}
+.scrubber-info{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.scrubber-eyebrow{font-size:.6em;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.45);font-weight:700}
+.scrubber-datetext{font-size:.85em;font-weight:800;color:#fff;letter-spacing:.3px;white-space:nowrap}
+.scrubber-btn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:20px;color:rgba(255,255,255,.8);font-size:.68em;font-weight:700;padding:5px 14px;cursor:pointer;letter-spacing:.5px;text-transform:uppercase;white-space:nowrap;transition:all .15s;font-family:inherit}
+.scrubber-btn:hover{background:rgba(233,69,96,.35);border-color:#e94560;color:#fff}
+.scrubber-btn.is-active{background:#e94560;border-color:#e94560;color:#fff;animation:pulse .4s ease}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
+input[type=range].day-slider{-webkit-appearance:none;appearance:none;width:100%;height:5px;border-radius:100px;background:rgba(255,255,255,.18);outline:none;cursor:pointer;display:block}
+input[type=range].day-slider::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 38% 35%,#ff9aaa,#e94560);box-shadow:0 2px 10px #e9456077;cursor:grab;transition:transform .1s}
+input[type=range].day-slider:active::-webkit-slider-thumb{cursor:grabbing;transform:scale(1.25)}
+input[type=range].day-slider::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 38% 35%,#ff9aaa,#e94560);border:none;box-shadow:0 2px 10px #e9456077;cursor:grab}
+.scrubber-ticks{display:flex;justify-content:space-between;margin-top:6px;padding:0 1px}
+.scrubber-tick{font-size:.58em;color:rgba(255,255,255,.3);text-align:center}
+.planning-badge{display:inline-block;background:#e94560;color:#fff;font-size:.65em;font-weight:800;padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.5px;margin-left:8px;vertical-align:middle;animation:badgePop .3s ease}
+@keyframes badgePop{from{transform:scale(0.7);opacity:0}to{transform:scale(1);opacity:1}}
+
 /* ── Traffic Light Dashboard ── */
 .tl-dashboard{background:#141414;border-radius:14px;padding:16px;margin-bottom:16px;border:1px solid #252525}
 .tl-title{font-size:.7em;text-transform:uppercase;letter-spacing:2px;color:#555;font-weight:700;margin-bottom:14px;text-align:center}
 .tl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.tl-item{background:#1c1c1c;border-radius:10px;padding:12px 8px 10px;display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer;transition:background .15s;position:relative;border:1px solid #222}
-.tl-item:hover{background:#222}
+.tl-item{background:#1c1c1c;border-radius:10px;padding:12px 8px 10px;display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer;transition:background .15s;border:1px solid #222}
+.tl-item:hover{background:#242424}
 .tl-light{width:34px;height:34px;border-radius:50%;flex-shrink:0}
 .tl-light.green{background:radial-gradient(circle at 38% 32%,#7fff7f,#1a9a1a);box-shadow:0 0 14px #22bb2266,0 2px 4px #00000044}
 .tl-light.yellow{background:radial-gradient(circle at 38% 32%,#ffe566,#c49000);box-shadow:0 0 14px #ddaa0066,0 2px 4px #00000044}
 .tl-light.red{background:radial-gradient(circle at 38% 32%,#ff7070,#bb1111);box-shadow:0 0 14px #cc111166,0 2px 4px #00000044}
 .tl-emoji{font-size:1.15em;line-height:1}
 .tl-label{font-size:.62em;text-align:center;color:#888;font-weight:700;text-transform:uppercase;letter-spacing:.4px;line-height:1.3}
-.tl-status{font-size:.6em;font-weight:700;text-transform:uppercase;letter-spacing:.4px;line-height:1}
+.tl-status{font-size:.6em;font-weight:700;text-transform:uppercase;letter-spacing:.4px}
 .tl-status.green{color:#3dbb3d}
 .tl-status.yellow{color:#ccaa00}
 .tl-status.red{color:#cc2222}
@@ -117,7 +135,7 @@
 /* ── Tip popup ── */
 .tl-popup{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#1a1a2e;border:1px solid #e94560;border-radius:12px;padding:14px 18px;max-width:320px;width:90%;z-index:200;animation:popUp .18s ease;box-shadow:0 8px 32px #00000099}
 @keyframes popUp{from{opacity:0;transform:translateX(-50%) translateY(8px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
-.tl-popup-head{font-size:.9em;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.tl-popup-head{font-size:.9em;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .tl-popup-body{font-size:.82em;color:#bbb;line-height:1.55}
 .tl-popup-close{position:absolute;top:8px;right:10px;background:none;border:none;color:#555;cursor:pointer;font-size:1em;line-height:1}
 </style>
@@ -167,9 +185,32 @@
 <footer>Made with ❤️ for the guys who actually give a damn</footer>
 
 <script>
+// ── Day offset (planning mode) ─────────────────────────────
+let scrubOffset = 0;
+
+function getScrubDate() {
+  const d = new Date();
+  d.setDate(d.getDate() + scrubOffset);
+  return d;
+}
+
+function formatPlanDate(d) {
+  return d.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' });
+}
+
+function setScrub(val) {
+  scrubOffset = parseInt(val) || 0;
+  renderDashboard();
+}
+
+function resetScrub() {
+  scrubOffset = 0;
+  renderDashboard();
+}
+
 // ── Seed helpers ───────────────────────────────────────────
 function seedRand(s){return()=>{s=Math.sin(s)*10000;return s-Math.floor(s);}}
-function dailySeed(){const d=new Date();return d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate();}
+function dailySeed(){const d=getScrubDate();return d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate();}
 function pickN(arr,n,rng){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(rng()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a.slice(0,Math.min(n,a.length));}
 function pickOne(arr,rng){return arr[Math.floor(rng()*arr.length)];}
 
@@ -187,81 +228,72 @@ function isRomantic(rel){return rel==='wife'||rel==='girlfriend';}
 function stageLabel(s){return{'teen':'👧 Teen','youngadult':'🌸 Young Adult','adult':'💪 Adult','perimenopause':'🌿 Perimenopause','menopause':'🌙 Menopause','postmenopause':'✨ Post-Menopause'}[s]||s;}
 function relLabel(r){return{'wife':'👰 Wife','girlfriend':'💑 Girlfriend','friend':'👯 Friend','mom':'💐 Mom','daughter':'🌟 Daughter'}[r]||r;}
 
-// ── TRAFFIC LIGHT DATA ────────────────────────────────────
-// 6 indicators, each with ratings per phase + tip text
-// Romantic-only indicators hidden for non-romantic relationships
-
+// ── TRAFFIC LIGHT DATA ─────────────────────────────────────
 const TL_DATA = {
-  sex: {
-    emoji:'🍆', label:'Sex',
-    romanticOnly: true,
+  sex:{
+    emoji:'🍆',label:'Sex',romanticOnly:true,
     phases:{
-      menstruation: {light:'yellow', tip:'Possible but read her signals carefully. Some women are fine with it, others aren\'t. Let her lead — never push.'},
-      follicular:   {light:'green',  tip:'Estrogen rising = libido rising. She\'s open and engaged. Good window — be attentive and spontaneous.'},
-      ovulation:    {light:'green',  tip:'Peak libido of the entire cycle. She\'s primed and confident. This is THE window. Don\'t waste it.'},
-      early_luteal: {light:'yellow', tip:'Can go either way. Some women feel connected, others pull back. Be warm and let her set the pace.'},
-      pms:          {light:'red',    tip:'Libido drops hard with serotonin. Don\'t push it. Comfort and closeness without pressure is the move.'},
-      postmenopause:{light:'yellow', tip:'Libido is more variable at this stage. Be warm, patient, and never assume. Let her lead always.'}
+      menstruation:{light:'yellow',tip:'Possible but read her signals carefully. Some women are fine with it, others aren\'t. Let her lead — never push.'},
+      follicular:{light:'green',tip:'Estrogen rising = libido rising. She\'s open and engaged. Good window — be attentive and spontaneous.'},
+      ovulation:{light:'green',tip:'Peak libido of the entire cycle. She\'s primed and confident. This is THE window. Don\'t waste it.'},
+      early_luteal:{light:'yellow',tip:'Can go either way. Some women feel connected, others pull back. Be warm and let her set the pace.'},
+      pms:{light:'red',tip:'Libido drops hard with serotonin. Don\'t push it. Comfort and closeness without pressure is the move.'},
+      postmenopause:{light:'yellow',tip:'Libido is more variable at this stage. Be warm, patient, and never assume. Let her lead always.'}
     }
   },
-  difficult: {
-    emoji:'🗣️', label:'Hard Talks',
-    romanticOnly: false,
+  difficult:{
+    emoji:'🗣️',label:'Hard Talks',romanticOnly:false,
     phases:{
-      menstruation: {light:'red',    tip:'She\'s physically low and emotionally fragile. Any serious conversation will go sideways. Save it.'},
-      follicular:   {light:'green',  tip:'She\'s sharp, positive, and open. Best week to raise anything important — she\'ll engage constructively.'},
-      ovulation:    {light:'yellow', tip:'Confident but focused on connection not conflict. Light topics fine — deep dives, not ideal.'},
-      early_luteal: {light:'yellow', tip:'More emotionally tuned in. Can work if approached with warmth, but back off if she resists.'},
-      pms:          {light:'red',    tip:'Serotonin is at its lowest. Any difficult topic will escalate fast. Hard no. Wait it out.'},
-      postmenopause:{light:'green',  tip:'Generally steady. Pick a calm moment, be direct and respectful — she can handle honest conversations.'}
+      menstruation:{light:'red',tip:'She\'s physically low and emotionally fragile. Any serious conversation will go sideways. Save it.'},
+      follicular:{light:'green',tip:'She\'s sharp, positive, and open. Best week to raise anything important — she\'ll engage constructively.'},
+      ovulation:{light:'yellow',tip:'Confident but focused on connection not conflict. Light topics fine — deep dives, not ideal.'},
+      early_luteal:{light:'yellow',tip:'More emotionally tuned in. Can work if approached with warmth, but back off if she resists.'},
+      pms:{light:'red',tip:'Serotonin is at its lowest. Any difficult topic will escalate fast. Hard no. Wait it out.'},
+      postmenopause:{light:'green',tip:'Generally steady. Pick a calm moment, be direct and respectful — she can handle honest conversations.'}
     }
   },
-  planning: {
-    emoji:'📅', label:'Planning',
-    romanticOnly: false,
+  planning:{
+    emoji:'📅',label:'Planning',romanticOnly:false,
     phases:{
-      menstruation: {light:'red',    tip:'Energy is low and she\'s inward-facing. Not the time to lay out future plans or big decisions.'},
-      follicular:   {light:'green',  tip:'Forward-thinking and optimistic. Ideal for mapping holidays, finances, life decisions — go for it.'},
-      ovulation:    {light:'green',  tip:'Decisive and engaged. Great time to lock in plans she\'s been sitting on.'},
-      early_luteal: {light:'yellow', tip:'More cautious now. Fine for reviewing existing plans — not the week to launch big new ones.'},
-      pms:          {light:'red',    tip:'Decision fatigue is real. Any proposal gets more resistance than usual this week. Hold off.'},
-      postmenopause:{light:'green',  tip:'Hormones steady — good baseline for planning conversations. Keep it calm and collaborative.'}
+      menstruation:{light:'red',tip:'Energy is low and she\'s inward-facing. Not the time to lay out future plans or big decisions.'},
+      follicular:{light:'green',tip:'Forward-thinking and optimistic. Ideal for mapping holidays, finances, life decisions — go for it.'},
+      ovulation:{light:'green',tip:'Decisive and engaged. Great time to lock in plans she\'s been sitting on.'},
+      early_luteal:{light:'yellow',tip:'More cautious now. Fine for reviewing existing plans — not the week to launch big new ones.'},
+      pms:{light:'red',tip:'Decision fatigue is real. Any proposal gets more resistance than usual this week. Hold off.'},
+      postmenopause:{light:'green',tip:'Hormones steady — good baseline for planning conversations. Keep it calm and collaborative.'}
     }
   },
-  work: {
-    emoji:'💼', label:'Work / Help',
-    romanticOnly: false,
+  work:{
+    emoji:'💼',label:'Work / Help',romanticOnly:false,
     phases:{
-      menstruation: {light:'yellow', tip:'She may need more support at work this week. Picking up slack at home without being asked is a big win.'},
-      follicular:   {light:'green',  tip:'She\'s sharp, energetic, and crushing it. Great time to ask for her input, collaborate, or lean on her skills.'},
-      ovulation:    {light:'green',  tip:'Peak performance mode. She\'s confident and capable — a great time to ask for her help or advice.'},
-      early_luteal: {light:'yellow', tip:'Still capable but winding down. Approach work topics with respect for her energy limits.'},
-      pms:          {light:'red',    tip:'Cognitive load is heavier this week. Reduce her plate where you can — don\'t add to it.'},
-      postmenopause:{light:'green',  tip:'Experience and wisdom are at their peak. Asking for help or advice this week will be well received.'}
+      menstruation:{light:'yellow',tip:'She may need more support this week. Picking up slack at home without being asked is a big win.'},
+      follicular:{light:'green',tip:'She\'s sharp, energetic, and crushing it. Great time to ask for her input or lean on her skills.'},
+      ovulation:{light:'green',tip:'Peak performance mode. She\'s confident and capable — great time to ask for her help or advice.'},
+      early_luteal:{light:'yellow',tip:'Still capable but winding down. Approach work topics with respect for her energy limits.'},
+      pms:{light:'red',tip:'Cognitive load is heavier this week. Reduce her plate where you can — don\'t add to it.'},
+      postmenopause:{light:'green',tip:'Experience and wisdom are at their peak. Asking for help or advice will be well received.'}
     }
   },
-  goingout: {
-    emoji:'🎉', label:'Going Out',
-    romanticOnly: false,
+  goingout:{
+    emoji:'🎉',label:'Going Out',romanticOnly:false,
     phases:{
-      menstruation: {light:'red',    tip:'Fatigue and discomfort make going out unappealing. Don\'t pressure her — if she wants in, she\'ll say so.'},
-      follicular:   {light:'green',  tip:'Social, energetic, and up for anything. Best week for events, dinners, and adventures — she\'ll thrive.'},
-      ovulation:    {light:'green',  tip:'Peak social confidence. Take her somewhere worth being seen. She\'ll own the room.'},
-      early_luteal: {light:'yellow', tip:'Prefers quieter, more intimate settings now. Dinner for two beats a packed bar this week.'},
-      pms:          {light:'red',    tip:'Crowds and noise hit harder this week. If you go out, keep it very low-key with an easy exit available.'},
-      postmenopause:{light:'green',  tip:'Generally up for enjoyable outings. Plan something comfortable and enjoyable — she\'ll appreciate the effort.'}
+      menstruation:{light:'red',tip:'Fatigue and discomfort make going out unappealing. Don\'t pressure her — if she wants in, she\'ll say so.'},
+      follicular:{light:'green',tip:'Social, energetic, and up for anything. Best week for events, dinners, adventures — she\'ll thrive.'},
+      ovulation:{light:'green',tip:'Peak social confidence. Take her somewhere worth being seen. She\'ll own the room.'},
+      early_luteal:{light:'yellow',tip:'Prefers quieter, more intimate settings now. Dinner for two beats a packed bar this week.'},
+      pms:{light:'red',tip:'Crowds and noise hit harder this week. If you go out, keep it very low-key with an easy exit.'},
+      postmenopause:{light:'green',tip:'Generally up for enjoyable outings. Plan something comfortable — she\'ll appreciate the effort.'}
     }
   },
-  joking: {
-    emoji:'😂', label:'Banter',
-    romanticOnly: false,
+  joking:{
+    emoji:'😂',label:'Banter',romanticOnly:false,
     phases:{
-      menstruation: {light:'yellow', tip:'Light humour can help — but nothing about her mood, appetite, or appearance. Read the room carefully.'},
-      follicular:   {light:'green',  tip:'She\'s playful and sharp. Bring your A-game — she\'ll give as good as she gets.'},
-      ovulation:    {light:'green',  tip:'Confidence is high. Flirty, witty, playful banter all land well this week. She\'s on fire.'},
-      early_luteal: {light:'yellow', tip:'Warm humour only. Keep it affectionate — no teasing about mood, appearance, or anything sensitive.'},
-      pms:          {light:'red',    tip:'Tolerance for anything that could be misread is near zero. Self-deprecating only. Never aimed at her.'},
-      postmenopause:{light:'green',  tip:'She has a sharp sense of humour at this stage. Warm, witty banter is welcomed — be genuine and playful.'}
+      menstruation:{light:'yellow',tip:'Light humour can help — but nothing about her mood, appetite, or appearance. Read the room carefully.'},
+      follicular:{light:'green',tip:'She\'s playful and sharp. Bring your A-game — she\'ll give as good as she gets.'},
+      ovulation:{light:'green',tip:'Confidence is high. Flirty, witty, playful banter all lands well this week. She\'s on fire.'},
+      early_luteal:{light:'yellow',tip:'Warm humour only. Keep it affectionate — no teasing about mood, appearance, or anything sensitive.'},
+      pms:{light:'red',tip:'Tolerance for anything that could be misread is near zero. Self-deprecating only. Never aimed at her.'},
+      postmenopause:{light:'green',tip:'She has a sharp sense of humour at this stage. Warm, witty banter is welcomed — be genuine and playful.'}
     }
   }
 };
@@ -271,81 +303,96 @@ function getPhaseKey(phaseName){
   return map[phaseName]||'follicular';
 }
 
-function buildTrafficLights(phaseName, rel, stage){
-  const phaseKey = stage==='postmenopause' ? 'postmenopause' : getPhaseKey(phaseName);
+function buildTrafficLights(phaseName, rel, stage) {
+  const phaseKey = stage === 'postmenopause' ? 'postmenopause' : getPhaseKey(phaseName);
   const romantic = isRomantic(rel);
-
-  const items = Object.entries(TL_DATA).map(([id, ind])=>{
-    // Hide sex for non-romantic relationships
-    if(ind.romanticOnly && !romantic) return '';
+  const items = Object.entries(TL_DATA).map(([id, ind]) => {
+    if (ind.romanticOnly && !romantic) return '';
     const r = ind.phases[phaseKey];
-    const lightLabel = {green:'GO',yellow:'CARE',red:'WAIT'}[r.light];
+    const lbl = {green:'GO', yellow:'CARE', red:'WAIT'}[r.light];
     return `<div class="tl-item" onclick="showTLPopup('${id}','${phaseKey}')">
       <div class="tl-light ${r.light}"></div>
       <div class="tl-emoji">${ind.emoji}</div>
       <div class="tl-label">${ind.label}</div>
-      <div class="tl-status ${r.light}">${lightLabel}</div>
+      <div class="tl-status ${r.light}">${lbl}</div>
     </div>`;
   }).filter(Boolean).join('');
-
-  // Build grid — if sex hidden (5 items), use 3+2 layout naturally via CSS grid
   return `<div class="tl-dashboard">
     <div class="tl-title">🚦 Right Now — Today's Green Lights</div>
     <div class="tl-grid">${items}</div>
   </div>`;
 }
 
-function showTLPopup(id, phaseKey){
-  const ind = TL_DATA[id];
-  if(!ind) return;
+function showTLPopup(id, phaseKey) {
+  const ind = TL_DATA[id]; if (!ind) return;
   const r = ind.phases[phaseKey];
-  const col = {green:'#3dbb3d', yellow:'#ccaa00', red:'#cc2222'}[r.light];
-  const label = {green:'GO — Good timing', yellow:'CARE — Read the room', red:'WAIT — Not now'}[r.light];
+  const col = {green:'#3dbb3d',yellow:'#ccaa00',red:'#cc2222'}[r.light];
+  const lbl = {green:'GO — Good timing',yellow:'CARE — Read the room',red:'WAIT — Not now'}[r.light];
   const container = document.getElementById('tl-popup-container');
   container.innerHTML = `<div class="tl-popup">
     <button class="tl-popup-close" onclick="document.getElementById('tl-popup-container').innerHTML=''">✕</button>
-    <div class="tl-popup-head"><span style="font-size:1.2em">${ind.emoji}</span><span>${ind.label}</span><span style="color:${col};font-size:.8em;font-weight:700">${label}</span></div>
+    <div class="tl-popup-head"><span style="font-size:1.2em">${ind.emoji}</span><span>${ind.label}</span><span style="color:${col};font-size:.8em;font-weight:700">${lbl}</span></div>
     <div class="tl-popup-body">${r.tip}</div>
   </div>`;
-  setTimeout(()=>{
-    document.addEventListener('click', ()=>{ container.innerHTML=''; }, {once:true});
+  setTimeout(() => {
+    document.addEventListener('click', () => { container.innerHTML = ''; }, {once:true});
   }, 100);
 }
 
-// ── Menopause focus cards ─────────────────────────────────
+// ── Scrubber HTML builder ──────────────────────────────────
+function buildScrubber() {
+  const planDate = getScrubDate();
+  const isPlanning = scrubOffset > 0;
+  const dateStr = isPlanning ? formatPlanDate(planDate) : 'Today — ' + formatPlanDate(planDate);
+  const ticks = ['Today','1w','2w','3w','1mo'];
+  return `<div class="scrubber-wrap">
+    <div class="scrubber-row">
+      <div class="scrubber-info">
+        <div class="scrubber-eyebrow">${isPlanning ? '📅 Planning Mode' : '📅 Plan Ahead'}</div>
+        <div class="scrubber-datetext">${dateStr}${isPlanning ? ' (+' + scrubOffset + 'd)' : ''}</div>
+      </div>
+      <button class="scrubber-btn${isPlanning ? ' is-active' : ''}" onclick="resetScrub()">↩ Reset to Today</button>
+    </div>
+    <input type="range" class="day-slider" min="0" max="30" value="${scrubOffset}"
+      oninput="setScrub(this.value)" />
+    <div class="scrubber-ticks">${ticks.map(t=>`<span class="scrubber-tick">${t}</span>`).join('')}</div>
+  </div>`;
+}
+
+// ── Menopause focus cards ──────────────────────────────────
 const MENO_FOCUSES=[
   {emoji:'🔥',name:'Hot Flash Day',color:'linear-gradient(135deg,#3d1500,#7a2a00)',borderColor:'#cc4400',
-   desc:'Hot flashes can strike without warning. Her thermoregulation is off and her body is working overtime to compensate. One of the most physically disruptive symptoms of this transition.',
+   desc:'Hot flashes can strike without warning. Her thermoregulation is off and her body is working overtime. One of the most physically disruptive symptoms of this transition.',
    tips:['✅ Keep rooms cooler than usual — quietly adjust the thermostat','✅ Have cold drinks ready without being asked','✅ Don\'t comment on sweating or flushing','✅ Keep a fan available','✅ Avoid heavy hot meals tonight — suggest something lighter'],
-   donts:['❌ Don\'t turn the heat up','❌ Don\'t comment on how flushed she looks','❌ Don\'t say "just cool down"','❌ Don\'t book a hot restaurant or sauna experience today'],
-   wins:['🌬️ Set up a fan in the bedroom before she asks','🧊 Keep cold drinks stocked all day','🛏️ Swap to breathable cotton bedding tonight','💆 Offer a cool compress for her neck','🛒 Surprise her with a personal cooling fan or cooling mist spray','🥗 Suggest a lighter dinner — salad, cold cuts, something easy','🎁 Research menopause cooling products and pick one up']},
+   donts:['❌ Don\'t turn the heat up','❌ Don\'t comment on how flushed she looks','❌ Don\'t say "just cool down"','❌ Don\'t book a hot restaurant or sauna today'],
+   wins:['🌬️ Set up a fan in the bedroom before she asks','🧊 Keep cold drinks stocked all day','🛏️ Swap to breathable cotton bedding tonight','💆 Offer a cool compress for her neck','🛒 Surprise her with a personal cooling fan','🥗 Suggest a lighter dinner — salad, cold cuts','🎁 Research menopause cooling products and pick one up']},
   {emoji:'🧠',name:'Brain Fog Day',color:'linear-gradient(135deg,#0d1a3d,#1a2a6b)',borderColor:'#3355cc',
-   desc:'Estrogen plays a direct role in cognitive function. As it fluctuates, memory, focus and clarity dip. She\'s not losing it — her brain chemistry is genuinely shifting. Patience isn\'t optional today.',
-   tips:['✅ Don\'t put her on the spot or expect fast decisions','✅ Write things down — don\'t rely on her memory','✅ Be patient if she loses her train of thought mid-sentence','✅ Take over logistics and admin where you can','✅ Keep the environment calm and low-stimulation'],
-   donts:['❌ Don\'t say "you already told me that"','❌ Don\'t make her feel silly for forgetting','❌ Don\'t pile decisions or information on her','❌ Don\'t fill the day with tasks requiring mental energy'],
-   wins:['📋 Handle all shared admin and logistics today','🧘 Keep the house calm — low noise, low chaos','💬 Be patient mid-conversation without making it obvious','☕ Bring her coffee or tea — caffeine helps clarity slightly','🛒 Do the grocery run so she doesn\'t have to think about it','🍳 Cook dinner so meal planning is off her plate','🤍 Remind her she\'s sharp and capable — she needs to hear it']},
+   desc:'Estrogen plays a direct role in cognitive function. As it fluctuates, memory, focus and clarity dip. She\'s not losing it — her brain chemistry is genuinely shifting.',
+   tips:['✅ Don\'t put her on the spot or expect fast decisions','✅ Write things down — don\'t rely on her memory','✅ Be patient if she loses her train of thought','✅ Take over logistics and admin where you can','✅ Keep the environment calm and low-stimulation'],
+   donts:['❌ Don\'t say "you already told me that"','❌ Don\'t make her feel silly for forgetting','❌ Don\'t pile decisions or information on her','❌ Don\'t fill the day with mentally demanding tasks'],
+   wins:['📋 Handle all shared admin and logistics today','🧘 Keep the house calm — low noise, low chaos','💬 Be patient mid-conversation without making it obvious','☕ Bring her coffee or tea','🛒 Do the grocery run so she doesn\'t have to think about it','🍳 Cook dinner so meal planning is off her plate','🤍 Remind her she\'s sharp and capable']},
   {emoji:'😔',name:'Emotional Intensity Day',color:'linear-gradient(135deg,#2a0a2a,#4a1a4a)',borderColor:'#772299',
-   desc:'Hormonal fluctuations during menopause directly affect serotonin and dopamine. Sadness, anxiety, or irritability can surface suddenly. This is neurochemical — not weakness, not drama.',
+   desc:'Hormonal fluctuations during menopause directly affect serotonin and dopamine. Sadness, anxiety, or irritability can surface suddenly. This is neurochemical — not weakness.',
    tips:['✅ Listen without trying to fix or explain','✅ Validate her feelings — don\'t minimise them','✅ Be a calm, steady presence today','✅ Don\'t take emotional reactions personally','✅ Check in gently — a simple "you okay?" matters'],
    donts:['❌ Don\'t say "it\'s just your hormones"','❌ Don\'t dismiss or minimise what she\'s feeling','❌ Don\'t go quiet or withdraw — she needs presence','❌ Don\'t start difficult conversations today'],
-   wins:['🤗 Long genuine hug — hold it, don\'t rush it','💌 Send a thoughtful check-in text during the day','🕯️ Create a calm atmosphere — dim lights, quiet music','🌸 Pick up flowers on the way home','🍕 Order her favourite comfort food — no discussion needed','💬 Tell her something specific you love about her','🧖 No-expectation massage — back, shoulders, or feet']},
+   wins:['🤗 Long genuine hug — hold it, don\'t rush it','💌 Send a thoughtful check-in text during the day','🕯️ Create a calm atmosphere — dim lights, quiet music','🌸 Pick up flowers on the way home','🍕 Order her favourite comfort food','💬 Tell her something specific you love about her','🧖 No-expectation massage — back, shoulders, or feet']},
   {emoji:'😴',name:'Sleep Disruption Day',color:'linear-gradient(135deg,#0a1a2a,#1a2a3d)',borderColor:'#2255aa',
-   desc:'Night sweats and hormonal shifts frequently wreck sleep during menopause. Poor sleep amplifies every other symptom — mood, cognition, pain tolerance, and emotional regulation all worsen without rest.',
+   desc:'Night sweats and hormonal shifts frequently wreck sleep during menopause. Poor sleep amplifies every other symptom — mood, cognition, pain tolerance, and emotional regulation.',
    tips:['✅ Let her sleep in or rest without disturbance','✅ Keep noise down in the morning','✅ Handle morning responsibilities yourself','✅ Suggest an early, quiet evening','✅ Make the bedroom as cool and comfortable as possible'],
-   donts:['❌ Don\'t wake her unnecessarily','❌ Don\'t make noise while she\'s still resting','❌ Don\'t dismiss tiredness as laziness or attitude','❌ Don\'t plan anything demanding today'],
-   wins:['🛏️ Set the bedroom to a cool, dark, quiet sleep environment','☕ Let her sleep and handle the morning solo','🧘 Suggest an early, relaxed evening with zero commitments','🍵 Make calming herbal tea before bed','🛒 Pick up magnesium supplements — they genuinely help sleep','📵 Phone on silent so it doesn\'t wake her','🎁 Lavender pillow spray or a sleep mask as a thoughtful surprise']},
+   donts:['❌ Don\'t wake her unnecessarily','❌ Don\'t make noise while she\'s still resting','❌ Don\'t dismiss tiredness as laziness','❌ Don\'t plan anything demanding today'],
+   wins:['🛏️ Set the bedroom to cool, dark, quiet','☕ Let her sleep and handle the morning solo','🧘 Suggest an early, relaxed evening with zero commitments','🍵 Make calming herbal tea before bed','🛒 Pick up magnesium supplements — they genuinely help sleep','📵 Phone on silent so it doesn\'t wake her','🎁 Lavender pillow spray or a sleep mask']},
   {emoji:'⚡',name:'Low Energy Day',color:'linear-gradient(135deg,#1a1a0a,#2a2a1a)',borderColor:'#887700',
    desc:'Hormonal shifts, disrupted sleep, and metabolic changes during menopause create real fatigue. Her body is doing enormous biological work. Low energy today is not laziness — it\'s physiology.',
    tips:['✅ Reduce her mental and physical load wherever possible','✅ Don\'t plan demanding activities or outings','✅ Handle chores and logistics proactively','✅ Let her rest without guilt or commentary','✅ Keep the atmosphere calm and pressure-free'],
    donts:['❌ Don\'t suggest she "push through it"','❌ Don\'t load the day with plans','❌ Don\'t make her feel guilty for needing rest','❌ Don\'t compare her energy to other days'],
-   wins:['🧹 Do all chores quietly — no announcement needed','🛒 Handle all errands and shopping today','🍲 Cook a nourishing meal — food is one less decision for her','🛋️ Set up a comfortable rest spot — blanket, cushions, remote','📺 Queue her favourite show without being asked','☕ Keep her supplied with hot drinks all day','🌺 Small treat or flowers — remind her she\'s loved on tough days']}
+   wins:['🧹 Do all chores quietly — no announcement needed','🛒 Handle all errands and shopping today','🍲 Cook a nourishing meal — food is one less decision','🛋️ Set up a comfortable rest spot — blanket, cushions, remote','📺 Queue her favourite show without being asked','☕ Keep her supplied with hot drinks all day','🌺 Small treat or flowers — remind her she\'s loved']}
 ];
 
 const POSTMENO={
-  overview:'Hormones have settled at their new lower baseline. The intense transitional storm has passed. Lower estrogen still affects mood, energy, joints, and emotional wellbeing — but the unpredictability has eased. She\'s entered a new chapter and deserves a partner who consistently shows up for it.',
+  overview:'Hormones have settled at their new lower baseline. The intense transitional storm has passed. Lower estrogen still affects mood, energy, joints, and emotional wellbeing — but the unpredictability has eased.',
   tips:['✅ Stay attentive — lower estrogen still affects mood and energy daily','✅ Support her independence, friendships, and interests','✅ Be affectionate and warm — physical touch and connection remain vital','✅ Plan enjoyable, comfortable activities together','✅ Celebrate who she is at this stage — she has earned it'],
-  donts:['❌ Don\'t assume everything is normal — some symptoms persist','❌ Don\'t make her feel invisible or irrelevant','❌ Don\'t ignore signs of low mood or withdrawal from life'],
-  wins:['🌺 Plan a lovely day out — relaxed, enjoyable, no pressure','💌 Write her a note about what you admire about her strength and journey','🧖 Book her a spa day or massage as a proper treat','🌍 Plan a trip or experience she\'s been wanting to do','☕ Regular coffee or lunch dates — invest in consistent quality time','💐 Flowers regularly — keep the romance and appreciation alive','🎁 Thoughtful gifts that reflect her passions and interests','🎭 Book tickets to something she\'d genuinely love','💬 Have deep conversations — she has real wisdom, engage with it','🤝 Encourage and support her social life and friendships']
+  donts:['❌ Don\'t assume everything is fine — some symptoms persist','❌ Don\'t make her feel invisible or irrelevant','❌ Don\'t ignore signs of low mood or withdrawal from life'],
+  wins:['🌺 Plan a lovely day out — relaxed, enjoyable, no pressure','💌 Write her a note about what you admire about her','🧖 Book her a spa day or massage as a proper treat','🌍 Plan a trip or experience she\'s been wanting to do','☕ Regular coffee or lunch dates — invest in consistent quality time','💐 Flowers regularly — keep the romance and appreciation alive','🎁 Thoughtful gifts that reflect her passions and interests','🎭 Book tickets to something she\'d genuinely love','💬 Have deep conversations — she has real wisdom, engage with it','🤝 Encourage and support her social life and friendships']
 };
 
 // ── Phase data ─────────────────────────────────────────────
@@ -359,15 +406,15 @@ const PHASES=[
      daughter:["Your daughter's not feeling well, dad. Go easy on expectations and make sure she knows you've got her back.","Low energy, possible discomfort. Keep things light and don't push for big conversations this week.","Be the safe, calm presence she needs right now. No big talks, no pressure, just warmth.","Check in gently. Make sure she has what she needs. That's your job this week, dad.","Dad mode: fully active. She needs comfort and zero pressure. You've got this."]
    },
    hormones_std:'Estrogen and progesterone are at their lowest. The uterine lining is shedding, which takes real energy. Cramps, back pain, fatigue, and emotional sensitivity are all physiologically real.',
-   hormones_peri:'Estrogen and progesterone are dropping, but perimenopause means these fluctuations can be more unpredictable and intense. Cramps may be heavier or lighter than usual, and emotional sensitivity can be amplified. Expect more, not less.',
-   hormones_meno:'At this stage periods may still occur occasionally but are becoming rare. When they do arrive, they can be heavier, longer, or more uncomfortable than in earlier years. Hormonal shifts are more extreme.',
+   hormones_peri:'Estrogen and progesterone are dropping, but perimenopause means these fluctuations can be more unpredictable and intense. Cramps may be heavier or lighter than usual, and emotional sensitivity can be amplified.',
+   hormones_meno:'At this stage periods may still occur occasionally but are becoming rare. When they do arrive, they can be heavier, longer, or more uncomfortable than in earlier years.',
    mood:'Tired, possibly uncomfortable, emotionally sensitive. She needs warmth and understanding — not logic or demands.',
    dos:['✅ Be extra patient and understanding','✅ Bring her comfort food or her favourite snack','✅ Offer a heating pad or hot water bottle','✅ Let her choose what you watch','✅ Handle chores quietly without making it a big deal'],
    donts:['❌ Don\'t bring up money, big plans, or unresolved issues','❌ Don\'t start serious debates','❌ Don\'t minimise her pain or discomfort','❌ Don\'t make her feel guilty for resting','❌ Don\'t bring up the guys trip'],
    notsay_romantic:["\"You're always like this once a month\"","\"It's just cramps, you'll be fine\"","\"Can I go out with the guys?\"","\"Why are you so moody?\"","\"Other girls don't make such a big deal\""],
    notsay_friend:["\"You're being so dramatic\"","\"Can you just snap out of it?\"","\"You cancelled on me again\"","\"You seem really moody lately\""],
    notsay_family:["\"You're always difficult this week\"","\"What's wrong with you?\"","\"You're overreacting\"","\"Just push through it\""],
-   wins_romantic:['💆 Back or foot massage — no strings attached','🍫 Surprise her with chocolate or her comfort food','📺 Cosy night in — her choice of show, zero complaints','🛁 Draw her a warm bath','🧹 Quietly clean the kitchen or bathroom','🛒 Pick up whatever she needs without being asked','🍵 Make her a hot drink exactly how she likes it','📱 Send a sweet "thinking of you" text mid-day','🛏️ Let her rest without interrupting','🍲 Cook a warm comforting meal — soup, pasta, whatever she loves'],
+   wins_romantic:['💆 Back or foot massage — no strings attached','🍫 Surprise her with chocolate or her comfort food','📺 Cosy night in — her choice of show, zero complaints','🛁 Draw her a warm bath','🧹 Quietly clean the kitchen or bathroom','🛒 Pick up whatever she needs without being asked','🍵 Make her a hot drink exactly how she likes it','📱 Send a sweet "thinking of you" text mid-day','🛏️ Let her rest without interrupting','🍲 Cook a warm comforting meal'],
    wins_friend:['📱 Send a "hey, you good?" — genuine, no agenda','🍵 Suggest comfort food or a low-key hang','💬 Just listen if she wants to vent — no advice needed','🛒 Offer to pick something up if you\'re passing by','🎬 Suggest a chill catch-up when she\'s feeling better'],
    wins_family:['📞 Call and ask how she\'s doing — and mean it','🍲 Cook or bring her a meal','🧹 Help around the house without being asked','💬 Be patient and kind in every interaction this week','🛒 Handle errands for her if you can']},
 
@@ -380,8 +427,8 @@ const PHASES=[
      daughter:["She's in a great mood and full of energy, dad. Great time for proper quality time together.","She's open, happy, and engaged. Perfect week to connect — ask about her life, her plans, her dreams.","Good week for a proper father-daughter hang. She's in her element — engage with it.","She's social and outgoing right now. Be the dad who shows up and actually engages.","She'll be great company this week. Make the effort to spend time together. She'll remember it."]
    },
    hormones_std:'Estrogen is rising rapidly. The brain becomes more alert, creative, and socially confident. She feels lighter, more optimistic, and genuinely energised. This is her natural high point.',
-   hormones_peri:'Estrogen is attempting to rise but may fluctuate unpredictably in perimenopause. Good days during this phase can feel great, but the reliability of the follicular energy boost is reduced. Enjoy the good days when they come — don\'t take them for granted.',
-   hormones_meno:'Estrogen remains low even during what would have been the follicular phase. However, relative hormonal shifts can still produce better days — more energy, improved mood, and clearer thinking compared to other points in the month.',
+   hormones_peri:'Estrogen is attempting to rise but may fluctuate unpredictably in perimenopause. Good days during this phase can feel great, but the reliability of the energy boost is reduced.',
+   hormones_meno:'Estrogen remains low but relative hormonal shifts can still produce better days — more energy, improved mood, and clearer thinking compared to other points in the month.',
    mood:'Happy, energetic, open-minded, extroverted. She\'s at her best and genuinely fun to be around.',
    dos:['✅ Plan dates, outings, and new experiences','✅ Have important conversations — future plans, big topics','✅ Try new restaurants, activities, or adventures','✅ Be spontaneous and match her energy','✅ Suggest social plans and actually follow through'],
    donts:['❌ Don\'t waste this window being boring and passive','❌ Don\'t keep avoiding conversations you\'ve been putting off','❌ Don\'t take her great mood for granted','❌ Don\'t bail on plans — she\'s organised and excited right now'],
@@ -401,8 +448,8 @@ const PHASES=[
      daughter:["She's confident and full of energy this week, dad. Great time for a fun activity together.","She's in her element — engage with her, celebrate that energy, and be genuinely present.","High confidence, high energy. Be the dad who shows up and matches her enthusiasm.","She's feeling great this week. Good time for a quality father-daughter moment — make it count.","She's bright and energetic. Be present and engaged. She'll remember it more than you know."]
    },
    hormones_std:'Estrogen peaks and LH surges, triggering egg release. Highest libido, social confidence, and physical energy of the cycle. She feels and looks her absolute best.',
-   hormones_peri:'Ovulation becomes irregular in perimenopause — it may still occur but timing is unpredictable. When it does happen, the confidence and energy boost can still appear. However libido fluctuations are more complex and not always as predictable.',
-   hormones_meno:'True ovulation no longer occurs, but relative hormonal shifts can still produce peak-feeling days. She may feel more energetic and socially engaged on these days compared to others.',
+   hormones_peri:'Ovulation becomes irregular in perimenopause — it may still occur but timing is unpredictable. When it does happen, the confidence and energy boost can still appear.',
+   hormones_meno:'True ovulation no longer occurs, but relative hormonal shifts can still produce peak-feeling days with more energy and social engagement.',
    mood:'Confident, flirty, energetic, passionate. She feels and looks her absolute best.',
    dos:['✅ Plan something genuinely enjoyable together','✅ Compliment her — be specific and sincere','✅ Be fully present — phone down, eyes on her','✅ Be affectionate and attentive','✅ Make an effort with your own appearance too'],
    donts:['❌ Don\'t be distracted on dates','❌ Don\'t bring up stressful topics','❌ Don\'t cancel or reschedule without very good reason'],
@@ -422,8 +469,8 @@ const PHASES=[
      daughter:["She might be a bit quieter this week, dad. Don't push — just be available and genuinely warm.","Check in without pressure. Let her know you're there. That's the whole job right now.","She's more reflective right now. Good time for a gentle, low-key conversation if she wants it.","Be a calm, steady presence. No big topics, no pressure. Just warmth and availability.","Easy, no-pressure time together. No agenda. Just show up as the dad she can always count on."]
    },
    hormones_std:'Progesterone begins rising after ovulation. The peak energy starts to ease. She becomes more reflective and inward-focused, craving calmer, more intimate connection.',
-   hormones_peri:'In perimenopause, progesterone levels are often lower and more erratic than in earlier years. This can make the luteal phase more emotionally turbulent than expected. The shift inward may be more pronounced.',
-   hormones_meno:'Progesterone is consistently low at this life stage. The inward emotional shift associated with the luteal phase may still occur in rhythm with her body\'s remaining hormonal patterns, even if cycles are irregular.',
+   hormones_peri:'In perimenopause, progesterone levels are often lower and more erratic. This can make the luteal phase more emotionally turbulent than expected.',
+   hormones_meno:'Progesterone is consistently low at this life stage. The inward emotional shift may still occur in rhythm with her body\'s remaining hormonal patterns.',
    mood:'Calmer, slightly more sensitive, turning inward. Wants quiet connection over big events.',
    dos:['✅ Focus on quality, low-key time together','✅ Be a genuinely good listener — she may be reflective','✅ Give sincere compliments about who she is as a person','✅ Check in on how she\'s actually feeling','✅ Take over responsibilities without announcing it'],
    donts:['❌ Don\'t fill the week with loud social plans','❌ Don\'t dismiss her if she seems quieter than usual','❌ Don\'t neglect small acts of warmth and affection','❌ Don\'t make her feel she needs to perform or be "on"'],
@@ -443,8 +490,8 @@ const PHASES=[
      daughter:["She might be emotional or irritable this week, dad. Don't take it personally. Definitely don't comment on it.","Be patient, be kind, and absolutely do not say anything about her mood or hormones. Just be supportive.","She needs a calm, understanding presence this week. Be that for her — no teasing, no commentary.","Don't push her buttons this week. Low pressure, high warmth. That is the entire playbook.","Be the safe, steady dad she can rely on. No teasing. No comments. Just love."]
    },
    hormones_std:'Progesterone drops sharply. Estrogen fluctuates. Serotonin dips significantly. Bloating, headaches, fatigue, and emotional sensitivity are all real physiological symptoms — not drama.',
-   hormones_peri:'In perimenopause, PMS symptoms are significantly amplified. Lower baseline progesterone and more erratic estrogen mean mood swings, irritability, anxiety, and physical discomfort can be more intense and last longer than the standard PMS window.',
-   hormones_meno:'Even without a regular cycle, the hormonal fluctuations of perimenopause and menopause can mimic PMS-like symptoms. Low estrogen and progesterone combined with serotonin fluctuations create real emotional and physical challenges.',
+   hormones_peri:'In perimenopause, PMS symptoms are significantly amplified. Mood swings, irritability, anxiety, and physical discomfort can be more intense and last longer than the standard PMS window.',
+   hormones_meno:'Even without a regular cycle, hormonal fluctuations of perimenopause and menopause can mimic PMS-like symptoms. Low estrogen and progesterone combined with serotonin fluctuations create real challenges.',
    mood:'Irritable, emotionally heightened, possibly anxious. Small things feel disproportionately big. She\'s not doing this on purpose.',
    dos:['✅ Listen without trying to problem-solve','✅ Give space when needed — read the signals','✅ Show up with small, consistent acts of care','✅ Validate her feelings without judgment','✅ Keep shared spaces tidy — clutter compounds stress','✅ Handle your responsibilities without needing reminders'],
    donts:['❌ Don\'t pick fights or bring up unresolved issues','❌ Don\'t discuss budgets, big plans, or guys trips','❌ Don\'t suggest she\'s overreacting or being irrational','❌ Don\'t withdraw or go silent when things feel tense','❌ Don\'t leave her dealing with life admin alone'],
@@ -474,7 +521,7 @@ function calcLearned(){const h=(userData.history||[]).map(d=>new Date(d+'T12:00:
 function getTodayInfo(){
   if(!userData.periodStart)return null;
   const len=parseInt(userData.cycleLength)||28;
-  const today=new Date();today.setHours(0,0,0,0);
+  const today=getScrubDate();today.setHours(0,0,0,0);
   const sd=new Date(userData.periodStart+'T12:00:00');sd.setHours(0,0,0,0);
   let day=(Math.floor((today-sd)/86400000)%len)+1;
   if(day<1)day=1;
@@ -508,20 +555,23 @@ function renderDashboard(){
   const stage=getLifeStage(userData.age||30);
   const rel=userData.relationship||'girlfriend';
   const name=userData.herName||'Her';
+  const scrubHTML=buildScrubber();
+  const planningBadge=scrubOffset>0?'<span class="planning-badge">Planning Mode</span>':'';
 
   if(stage==='postmenopause'){
     const rng=seedRand(dailySeed()+77);
     const wins=pickN(POSTMENO.wins,4,rng);
-    const timingHTML=buildTrafficLights('PMS Phase',rel,stage); // use steady state
+    const tlHTML=buildTrafficLights('PMS Phase',rel,'postmenopause');
     dash.innerHTML=`
-      <div class="user-bar"><span>👤 <strong>${currentUser.displayName||currentUser.email}</strong></span><button class="btn btn-outline btn-sm" id="so-btn">Sign Out</button></div>
+      <div class="user-bar"><span>👤 <strong>${currentUser.displayName||currentUser.email}</strong>${planningBadge}</span><button class="btn btn-outline btn-sm" id="so-btn">Sign Out</button></div>
       <div class="phase-banner" style="background:linear-gradient(135deg,#1a1a2e,#2a1a3d)">
         <span class="emoji">✨</span>
         <div class="rel-badge">${relLabel(rel)} · ${stageLabel(stage)}</div>
         <h2>Tracking ${name}</h2><h3>Post-Menopause</h3>
         <div class="one-liner">"She's been through the storm and come out the other side. Be the guy who shows up consistently, thoughtfully, and without needing to be asked."</div>
+        ${scrubHTML}
       </div>
-      ${timingHTML}
+      ${tlHTML}
       <div class="overview-card"><h4>🌿 The Steady Overview</h4><p style="color:#ccc;line-height:1.6;font-size:.95em">${POSTMENO.overview}</p></div>
       <div class="card"><h4>✅ How to Show Up</h4><ul class="tip-list">${POSTMENO.tips.map(t=>`<li>${t}</li>`).join('')}</ul></div>
       <div class="card dont-say"><h4>🚫 What to Avoid</h4><ul class="tip-list">${POSTMENO.donts.map(t=>`<li>${t}</li>`).join('')}</ul></div>
@@ -538,11 +588,11 @@ function renderDashboard(){
   }
   const{phase,day,len,oneliner,winpoints,notsay,hormones,rel:r,stage:s}=info;
   const pct=Math.round(day/len*100),bc=BAR_COLORS[phase.name]||'#e94560';
-  const timingHTML=buildTrafficLights(phase.name,r,s);
+  const tlHTML=buildTrafficLights(phase.name,r,s);
 
-  const teenNote=s==='teen'?`<div class="warning-banner">👧 <strong>Teen cycles</strong> are often irregular in the early years. Use this as a helpful guide — not a precise clock. Be extra patient and understanding.</div>`:'';
-  const periNote=s==='perimenopause'?`<div class="warning-banner">🌿 <strong>Perimenopause:</strong> Cycles are becoming irregular and symptoms can be more intense. Treat the cycle tracker as a guide — not a guarantee. Expect amplified versions of each phase.</div>`:'';
-  const menoNote=s==='menopause'?`<div class="info-banner">🌙 <strong>Menopause:</strong> Periods are rare or have stopped, but hormonal rhythms and phase-like patterns can still occur. The cycle tracker shows historical context. See the Daily Hormonal Focus below for today's primary guide.</div>`:'';
+  const teenNote=s==='teen'?`<div class="warning-banner">👧 <strong>Teen cycles</strong> are often irregular in the early years. Use this as a helpful guide — not a precise clock.</div>`:'';
+  const periNote=s==='perimenopause'?`<div class="warning-banner">🌿 <strong>Perimenopause:</strong> Cycles are becoming irregular and symptoms can be more intense. Treat the tracker as a guide — not a guarantee.</div>`:'';
+  const menoNote=s==='menopause'?`<div class="info-banner">🌙 <strong>Menopause:</strong> Periods are rare or stopped. The cycle tracker shows historical context. See the Hormonal Focus below for today's primary guide.</div>`:'';
 
   let menoFocusHTML='';
   if(s==='menopause'||s==='perimenopause'){
@@ -557,23 +607,24 @@ function renderDashboard(){
         <p>${focus.desc}</p>
       </div>
       <div class="card" style="border-left-color:${focus.borderColor}"><h4 style="color:#ffaa66">✅ Focus-Specific Tips</h4><ul class="tip-list">${focus.tips.map(t=>`<li>${t}</li>`).join('')}</ul></div>
-      <div class="card dont-say" style="border-left-color:#ff4444"><h4>🚫 Avoid Today</h4><ul class="tip-list">${focus.donts.map(t=>`<li>${t}</li>`).join('')}</ul></div>
+      <div class="card dont-say"><h4>🚫 Avoid Today</h4><ul class="tip-list">${focus.donts.map(t=>`<li>${t}</li>`).join('')}</ul></div>
       <div class="card win-points"><h4>🏆 Bonus Win Points (${focus.name})</h4><ul class="tip-list">${fwins.map(w=>`<li>${w}</li>`).join('')}</ul></div>`;
   }
 
   dash.innerHTML=`
-    <div class="user-bar"><span>👤 <strong>${currentUser.displayName||currentUser.email}</strong></span><button class="btn btn-outline btn-sm" id="so-btn">Sign Out</button></div>
+    <div class="user-bar"><span>👤 <strong>${currentUser.displayName||currentUser.email}</strong>${planningBadge}</span><button class="btn btn-outline btn-sm" id="so-btn">Sign Out</button></div>
     ${teenNote}${periNote}${menoNote}
     <div class="phase-banner" style="background:${phase.color}">
       <span class="emoji">${phase.emoji}</span>
       <div class="rel-badge">${relLabel(r)} · ${stageLabel(s)}</div>
       <h2>Tracking ${name}</h2><h3>${phase.name}</h3>
-      <div class="day-badge">Day ${day} of ${len}</div>
+      <div class="day-badge">Day ${day} of ${len}${scrubOffset>0?' · '+formatPlanDate(getScrubDate()):''}</div>
       <div class="one-liner">"${oneliner}"</div>
       <div class="cycle-bar"><div class="cycle-bar-fill" style="width:${pct}%;background:${bc}"></div></div>
       <div class="cycle-meta"><span>Day 1</span><span>${pct}% through cycle</span><span>Day ${len}</span></div>
+      ${scrubHTML}
     </div>
-    ${timingHTML}
+    ${tlHTML}
     <div class="card"><h4>🧬 What's Happening Hormonally</h4><p>${hormones}</p></div>
     <div class="card"><h4>🎭 Mood & Energy Forecast</h4><p>${phase.mood}</p></div>
     <div class="card"><h4>✅ Your Action Plan Today</h4><ul class="tip-list">${phase.dos.map(d=>`<li>${d}</li>`).join('')}</ul></div>
@@ -608,21 +659,19 @@ function renderSetup(){
         <option value="mom" ${rel==='mom'?'selected':''}>💐 Mom</option>
         <option value="daughter" ${rel==='daughter'?'selected':''}>🌟 Daughter</option>
       </select>
-      <label>Her Age</label>
-      <input type="number" id="her-age" value="${age}" placeholder="e.g. 34" min="13" max="80"/>
+      <label>Her Age</label><input type="number" id="her-age" value="${age}" placeholder="e.g. 34" min="13" max="80"/>
       <div style="background:#1a1a0a;border:1px solid #444;border-radius:8px;padding:10px 14px;font-size:.82em;color:#aaa;margin-bottom:16px;">
-        📊 Life stage: <strong style="color:#fff">${stageLabel(stage)}</strong>${stage==='perimenopause'?' — cycle tracker shown with amplified symptom descriptions + daily hormonal focus':stage==='menopause'?' — cycle tracker shown as historical context + daily hormonal focus dashboard':stage==='postmenopause'?' — cycle tracker replaced with steady-state dashboard':''}
+        📊 Life stage: <strong style="color:#fff">${stageLabel(stage)}</strong>
       </div>
       <label>First Day of Most Recent Period</label>
       <input type="date" id="period-start" value="${userData.periodStart||''}"/>
       ${!isPost?`<label>Cycle Length (days)${learned?' <span class="tag">📈 LEARNED</span>':''}</label>
       <input type="number" id="cycle-length" value="${learned||userData.cycleLength||28}" min="21" max="45"/>
       ${learned?`<div class="learned-badge">✅ Auto-calculated from ${h.length} logged periods</div>`:''}`:''}
-      ${isPost?'<p style="color:#888;font-size:.82em;margin-bottom:16px;padding:10px;background:#1a1a1a;border-radius:8px;">💜 Post-menopause: cycle length not required. You can still log occasional periods if they occur.</p>':''}
+      ${isPost?'<p style="color:#888;font-size:.82em;margin-bottom:16px;padding:10px;background:#1a1a1a;border-radius:8px;">💜 Post-menopause: cycle length not required.</p>':''}
       <button class="btn" id="save-btn">💾 Save Profile</button>
       <hr>
       <div class="section-title">📅 Log New Period Start</div>
-      <p style="color:#888;font-size:.85em;margin-bottom:14px">Log each new period start so the app learns her cycle and tracks history.</p>
       <label>New Period Start Date</label><input type="date" id="new-period-date"/>
       <button class="btn btn-outline" id="log-btn">➕ Log Period Start</button>
       ${h.length?`
@@ -635,7 +684,7 @@ function renderSetup(){
       <button class="btn btn-green" id="notif-btn">🔔 Enable Browser Notifications</button>
       <hr>
       <div class="section-title">📧 Email Reminders (EmailJS)</div>
-      <div class="emailjs-info">1. Sign up free at <a href="https://emailjs.com" target="_blank">emailjs.com</a><br>2. Create an Email Service (Gmail works great)<br>3. Create a Template — paste our pre-built code using the button below<br>4. Enter your IDs below</div>
+      <div class="emailjs-info">1. Sign up free at <a href="https://emailjs.com" target="_blank">emailjs.com</a><br>2. Create an Email Service<br>3. Create a Template and paste our pre-built code<br>4. Enter your IDs below</div>
       <button class="btn btn-outline" id="copy-template-btn" style="margin-bottom:16px">📋 Copy Email Template Code</button>
       <label>Your Email</label><input type="email" id="notify-email" value="${userData.notifyEmail||''}" placeholder="you@example.com"/>
       <label>EmailJS Service ID</label><input id="ejs-svc" value="${userData.ejsSvc||''}" placeholder="service_xxxxxxx"/>
@@ -657,19 +706,17 @@ function renderSetup(){
     if(!periodStart&&!isPostNow){alert('Please enter the first day of her period.');return;}
     await saveUserData(updates);alert('✅ Profile saved and synced!');showPage('dashboard');
   };
-
   $('log-btn').onclick=async()=>{
     const d=$('new-period-date').value;if(!d){alert('Please enter a date.');return;}
     const h2=userData.history||[];if(!h2.includes(d))h2.push(d);
     const sorted=[...h2].sort((a,b)=>new Date(b)-new Date(a));
     const lrn=calcLearned();const upd={history:h2,periodStart:sorted[0]};
     if(lrn)upd.cycleLength=lrn;
-    await saveUserData(upd);alert(`✅ Period logged!${lrn?`\n📈 Learned cycle: ${lrn} days`:''}`);renderSetup();
+    await saveUserData(upd);alert(`✅ Period logged!${lrn?'\n📈 Learned cycle: '+lrn+' days':''}`);renderSetup();
   };
-
   document.querySelectorAll('.del').forEach(btn=>{btn.onclick=async()=>{const h2=(userData.history||[]).filter(d=>d!==btn.dataset.date);await saveUserData({history:h2});renderSetup();};});
   $('notif-btn').onclick=()=>{if(!('Notification' in window)){alert('Not supported.');return;}Notification.requestPermission().then(p=>{if(p==='granted')alert('✅ Enabled!');});};
-  $('copy-template-btn').onclick=()=>{navigator.clipboard.writeText(EMAIL_TEMPLATE).then(()=>{const b=$('copy-template-btn');b.textContent='✅ Copied!';b.style.borderColor='#44cc44';b.style.color='#44cc44';setTimeout(()=>{b.textContent='📋 Copy Email Template Code';b.style.borderColor='';b.style.color='';},3000);}).catch(()=>alert('Copy failed.'));};
+  $('copy-template-btn').onclick=()=>{navigator.clipboard.writeText(EMAIL_TEMPLATE).then(()=>{const b=$('copy-template-btn');b.textContent='✅ Copied!';setTimeout(()=>{b.textContent='📋 Copy Email Template Code';},3000);}).catch(()=>alert('Copy failed.'));};
   $('save-email-btn').onclick=async()=>{await saveUserData({notifyEmail:$('notify-email').value,ejsSvc:$('ejs-svc').value,ejsTmpl:$('ejs-tmpl').value,ejsKey:$('ejs-key').value});alert('✅ Email settings saved!');};
   $('test-email-btn').onclick=()=>{
     const{notifyEmail:em,ejsSvc:sv,ejsTmpl:tm,ejsKey:ky}=userData;
@@ -689,22 +736,20 @@ function renderReference(){
     PHASES.map(p=>`<div class="phase-ref">
       <h3 style="margin-bottom:6px">${p.emoji} ${p.name} <span style="color:#666;font-size:.8em">(Days ${p.days[0]}–${p.days[p.days.length-1]})</span></h3>
       <p style="margin-bottom:8px;color:#888;font-size:.85em;line-height:1.5">${p.hormones_std}</p>
-      <p style="color:#ffaa44;font-size:.82em;margin-bottom:4px">🌿 Perimenopause: ${p.hormones_peri.substring(0,80)}...</p>
       <p style="color:#ff6666;font-size:.82em;margin-bottom:4px">🚫 e.g. ${p.notsay_romantic[0]}</p>
       <p style="color:#44cc44;font-size:.82em">🏆 e.g. ${p.wins_romantic[0]}</p>
     </div>`).join('')+
     `<h2 style="margin:24px 0 16px;font-size:1.2em">🌿 Menopause Stages</h2>`+
-    [['🌿 Perimenopause (40–54)','Cycles become irregular, symptoms intensify. All standard phases still apply but with amplified effects. Hot flashes, brain fog, mood swings, and sleep disruption layer on top of the normal cycle symptoms. The daily Hormonal Focus card adds context alongside cycle tracking.'],
-     ['🌙 Menopause (51–58)','Periods are rare or have stopped. Cycle tracker shown as historical reference. Daily Hormonal Focus dashboard becomes the primary guide — rotating through Hot Flash, Brain Fog, Emotional Intensity, Sleep Disruption, and Low Energy days.'],
-     ['✨ Post-Menopause (55+)','Hormones have settled at a new lower baseline. No cycle tracker needed. Steady-state dashboard with consistent tips on appreciation, energy support, emotional connection, and showing up for this chapter of her life.']
+    [['🌿 Perimenopause (40–54)','Cycles become irregular, symptoms intensify. All standard phases still apply but with amplified effects. Hot flashes, brain fog, mood swings, and sleep disruption layer on top of the normal cycle symptoms.'],
+     ['🌙 Menopause (51–58)','Periods are rare or have stopped. Daily Hormonal Focus dashboard becomes the primary guide — rotating through Hot Flash, Brain Fog, Emotional Intensity, Sleep Disruption, and Low Energy days.'],
+     ['✨ Post-Menopause (55+)','Hormones have settled at a new lower baseline. Steady-state dashboard with consistent tips on appreciation, energy support, emotional connection, and showing up for this chapter.']
     ].map(([t,d])=>`<div class="phase-ref"><h3 style="margin-bottom:6px">${t}</h3><p style="color:#888;font-size:.85em;line-height:1.5">${d}</p></div>`).join('')+
-    `<h2 style="margin:24px 0 16px;font-size:1.2em">🔥 Daily Hormonal Focuses (Meno)</h2>`+
-    MENO_FOCUSES.map(f=>`<div class="phase-ref"><h3 style="margin-bottom:6px">${f.emoji} ${f.name}</h3><p style="color:#888;font-size:.85em;line-height:1.5">${f.desc}</p><p style="color:#44cc44;font-size:.82em;margin-top:4px">🏆 e.g. ${f.wins[0]}</p></div>`).join('')+
-    `<h2 style="margin:24px 0 16px;font-size:1.2em">🎯 Timing Guide Legend</h2>`+
-    `<div class="phase-ref"><p style="color:#888;font-size:.85em;line-height:1.8">
-      <span style="color:#44cc44">🟢 Green</span> — Good timing. Go for it.<br>
-      <span style="color:#ffcc00">🟡 Yellow</span> — Proceed with awareness. Read the situation.<br>
-      <span style="color:#ff4444">🔴 Red</span> — Not the right moment. Wait for a better window.
+    `<h2 style="margin:24px 0 16px;font-size:1.2em">🚦 Traffic Light Guide</h2>`+
+    `<div class="phase-ref"><p style="color:#888;font-size:.85em;line-height:1.9">
+      <span style="color:#3dbb3d;font-weight:700">🟢 GO</span> — Good timing. She\'s receptive. Go for it.<br>
+      <span style="color:#ccaa00;font-weight:700">🟡 CARE</span> — Proceed with awareness. Read the situation first.<br>
+      <span style="color:#cc2222;font-weight:700">🔴 WAIT</span> — Not the right moment. Find a better window.<br><br>
+      Tap any light on the dashboard for a full explanation.
     </p></div>`;
 }
 
